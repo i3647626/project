@@ -142,7 +142,88 @@ console.log(isCheked || !isClose); */ /* || оператор "Или" вывод
 /* gitignore файл нужен для скрытия файлов и папок от системы контроля версий git  */
 /* Git Kracken программа, позволяющая работать с системой контроля версий с понятным интерфейсом */
 
-const numberOfFilms = prompt("Сколько фильмов Вы уже посмотрели?", "");
+/* 13 урок. Условия */
+/* В операторе if аргумент преобразуется в булиновое значение (True/False) */
+
+/* Простое условие */
+/* if (4==4) {   == оператор сравнения, а не присваивания
+    console.log("Ok");
+}   else{
+    console.log("Error");
+} */
+
+/* Разветвленное условие */
+/* const num = 50;
+if (num < 49) {
+    console.log("Error");
+}   else if (num > 100) {
+    console.log ("Много");
+}   else {
+    console.log("Ok");
+} */
+
+/* Тернарный оператор (три аргумента). Бывают унарные (+) преобразовет в числовой формат и бинарные (два аргумента) */
+/* Помогает экономить место и объем коде */
+/* const num = 50;
+(num == 50) ? console.log("Ok") : console.log("Error");
+ */
+
+/* Оператор Switch */
+/* const num = 50;
+    switch(num) {
+        case 49:
+            console.log("Неверно");
+            break;
+        case 100:
+            console.log("Неверно");
+            break;
+        case 50:
+            console.log("В точку");
+            break;
+        default:                             если ни одно условие не подходит
+            console.log("Не в этот раз");
+            break;
+    }
+ */
+
+ /* 14 Урок. Циклы */
+/* 3 способа создания циклов */
+
+/* 1 способ */
+/* While (пока) num не достигнет 54 добавлять по единичке с помощью инкремента и выводить переменную в консоль */
+/* let num = 50;
+while (num < 55) {
+    console.log(num);
+    num++;
+} */
+
+/* 2 способ встречается редко (сделай какое-то действие пока num не достигнет 54) */
+/* let num = 50;
+do {
+    console.log(num);
+    num++;
+}
+    while (num < 55); */
+
+/* 3 способ. Самый часто используемый */
+/* let num = 50;
+for (let i = 1; i < 10; i++) {
+        console.log(num);
+        num++;
+}*/
+
+/* Комбинация цикла с условием */
+/* for (let i = 1; i < 10; i++) {
+    if (i === 6) {
+        break; позволяет выйти из цикла при достижении условия
+        continue; позволяет пропустить не нужные значения внутри цикла не прерывая работу цикла
+    }
+    console.log(i);
+} */
+
+
+
+const numberOfFilms = +prompt("Сколько фильмов Вы уже посмотрели?", "");
 const personalMovieDB = {
     count: numberOfFilms,
     movies: {},
@@ -150,12 +231,26 @@ const personalMovieDB = {
     genres: [],
     privat: false
 };
-const a = prompt("Один из просмотренных фильмов", ""),
-      b = prompt("На сколько оцените его", ""),
-      c = prompt("Один из просмотренных фильмов", ""),
-      d = prompt("На сколько оцените его", "");
 
-personalMovieDB.movies[a] = b;
-personalMovieDB.movies[c] = d;
+for (let i = 0; i < 2; i++) { /* i < 2 означает, что каждый из вопросов будет задан дважды 0 и 1 */
+    const a = prompt("Один из просмотренных фильмов", ""),
+          b = prompt("На сколько оцените его", "");
+    if (a != null && b != 0 && a != "" && b != "" && a.length < 50) { /* значение null появляется, когда пользователь в диалоговом окне жмет Отмена */
+        personalMovieDB.movies[a] = b;
+        console.log("done");
+    }   else {
+        console.log("error");
+        i--;
+    }
+}
 
-console.log(personalMovieDB);
+if (personalMovieDB.count < 10) {
+    console.log("Просмотрено довольно мало фильмов");
+    } else if (personalMovieDB.count >=10 && personalMovieDB.count <30) {
+    console.log("Вы классический зритель"); 
+    } else if (personalMovieDB.count >=30) {
+    console.log("Вы киноман");
+    } else {
+        console.log("Произошла ошибка");
+    }
+    console.log(personalMovieDB);
