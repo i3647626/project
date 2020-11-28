@@ -221,9 +221,87 @@ for (let i = 1; i < 10; i++) {
     console.log(i);
 } */
 
+/* 16 Урок. Функции */
+
+/* Бывают 3 видов: Function declaration (видна до объявления как и перменная вар), Function Expression (видна после объявления как обычная переменная),
+ Стрелочный функции (появились в 2015 году с новым стандартом)*/
+ /* Переменные объявленные внутри функции видны только внутри функции (локально) */
+ /* Фунция в первую очередь пытается найти переменную заданную локально внутри себя, а если не находит, ищет ее глобально (называться они должны одинаково) */
+
+/* 1 вид function declaration */
+/* function showFirstMessage(text) { *//* название функции должно начинаться с глагола и описывать то, что она делает */
+    /* Функции мало объявить, их нужно вызвать */
+  /*   console.log("text");
+    let num = 10;
+    console.log(num);
+} */
+/* showFirstMessage("Hello");  вызов функции*/
+/* _________________________________________________ */
+/* function calc (a, b) { */
+   /*  return (a + b); */ /* Окончание функции, а также перевод локальной переменной внутри функции в глобальную */
+/* } */
+/* console.log(calc(4, 3)); */
+
+/* 2 вид Function Expression (Функция владывается в переменную и работает как переменная) */
+/* const logger = function() { */
+   /*  console.log("Hello"); */
+/* };                 ; ставить обязательно - объявляется переменная */
+/* logger(); */ /* вызов функции */
+
+/* 3 Вид Стрелочная функция*/
+/* const calc = (a, b) => a + b; /* короткая запись */
+/* console.log(calc) */
+
+/* const calc = (a, b) => {     /* длинная запись */
+/*     console.log("1");
+    return a + b;
+}; */
+
+/* 17. Урок. Методы и свойства строк и чисел */
+/* Методы - вспомогательные функции */
+/* Свойства - вспомогательные значения */
+
+/* const str = "test";
+console.log(str.length); */  /* свойство length показывает длину строки */
+/* console.log(str[2]); */  /* отобразится 3 буква - нумерация начинается с 0 */
+
+/* const str = "test"; */
+/* console.log(str.toUpperCase()); */ /* метод превращает строку в верхний регистр, но не меняет значение переменной str!!! */
+/* console.log(str.toUpperCase()); */  /* метод превращает строку в нижний регистр, но не меняет значение переменной str!!! */
+
+/* const fruit = "Some fruit";
+console.log(fruit.indexOf("fruit")); */  /* метод находит с какой позиции начинается нужная строка */
+/* console.log(fruit.indexOf("q"));  */  /* результат -1 можно использовать как условие. Такая буква находится за пределами строки */
+
+/* const logg = "Hello world";
+console.log(logg.slice(6, 11));  вырезает слово с 6 позиции до 11 не включая указанные цифры. Можно использовать отрицательные - будет брать с конца.
+console.log(logg.substring(6, 11)); */ 
+/* console.log(logg.substr(6, 5)); */ /* начинает вырезать с 6 позиции 5 символов подряд */
+
+/* const num = 12.2;
+console.log(Math.round(num)); */  /* подключение библиотеки Math и метода round для округления */
+
+/* const num = "12.69px";
+console.log(parseInt(num)); */  /* метод покажет 12 (выберет число из строки до запятой) */
+/* console.log(parseFloat(num)); */ /* метод покажет 12.69 (выберет число из строки включая дробную часть) */
 
 
-const numberOfFilms = +prompt("Сколько фильмов Вы уже посмотрели?", "");
+
+
+
+
+
+
+
+let numberOfFilms;
+
+function start () {
+    numberOfFilms = +prompt("Сколько фильмов Вы уже посмотрели?", "");
+    while (numberOfFilms == "" || numberOfFilms == null || isNaN(numberOfFilms))
+        numberOfFilms = +prompt("Сколько фильмов Вы уже посмотрели?", "");
+}
+start();
+
 const personalMovieDB = {
     count: numberOfFilms,
     movies: {},
@@ -232,25 +310,47 @@ const personalMovieDB = {
     privat: false
 };
 
-for (let i = 0; i < 2; i++) { /* i < 2 означает, что каждый из вопросов будет задан дважды 0 и 1 */
-    const a = prompt("Один из просмотренных фильмов", ""),
-          b = prompt("На сколько оцените его", "");
-    if (a != null && b != 0 && a != "" && b != "" && a.length < 50) { /* значение null появляется, когда пользователь в диалоговом окне жмет Отмена */
-        personalMovieDB.movies[a] = b;
-        console.log("done");
-    }   else {
-        console.log("error");
-        i--;
+function rememberMyFilms() {
+    for (let i = 0; i < 2; i++) { /* i < 2 означает, что каждый из вопросов будет задан дважды 0 и 1 */
+        const a = prompt("Один из просмотренных фильмов", ""),
+              b = prompt("На сколько оцените его", "");
+        if (a != null && b != 0 && a != "" && b != "" && a.length < 50) { /* значение null появляется, когда пользователь в диалоговом окне жмет Отмена */
+            personalMovieDB.movies[a] = b;
+            console.log("done");
+        }   else {
+            console.log("error");
+            i--;
+        }
     }
 }
 
-if (personalMovieDB.count < 10) {
-    console.log("Просмотрено довольно мало фильмов");
-    } else if (personalMovieDB.count >=10 && personalMovieDB.count <30) {
-    console.log("Вы классический зритель"); 
-    } else if (personalMovieDB.count >=30) {
-    console.log("Вы киноман");
-    } else {
-        console.log("Произошла ошибка");
+/* rememberMyFilms(); */
+
+function detectPersonalLevel() {
+    if (personalMovieDB.count < 10) {
+        console.log("Просмотрено довольно мало фильмов");
+        } else if (personalMovieDB.count >=10 && personalMovieDB.count <30) {
+        console.log("Вы классический зритель"); 
+        } else if (personalMovieDB.count >=30) {
+        console.log("Вы киноман");
+        } else {
+            console.log("Произошла ошибка");
+        }
+        console.log(personalMovieDB);
+}
+/* detectPersonalLevel(); */
+
+function showMyDb (hidden) {
+    if (!hidden) {
+        console.log(personalMovieDB);
     }
-    console.log(personalMovieDB);
+}
+showMyDb(personalMovieDB.privat);
+
+function writeYourGenres() {
+    for (let i = 1; i <=3; i++) {
+        const genre = prompt(`Ваш любимый жанр под номером ${i}`);
+        personalMovieDB.genres [i-1] = genre;
+    }
+}
+writeYourGenres();
